@@ -5,8 +5,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>app-infrastructure</module>
-        <module>app-web</module>
+        <module>springboot-backend-template</module>
     </modules>
 
     <parent>
