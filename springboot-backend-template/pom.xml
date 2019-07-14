@@ -13,7 +13,7 @@
 
     <modules>
         <module>app-infrastructure</module>
-        <module>app-web</module>
+        <module>app-one</module>
     </modules>
 
     <dependencies>
