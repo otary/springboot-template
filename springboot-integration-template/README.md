@@ -7,3 +7,15 @@
 - 集成druid
 - 集成thymeleaf
 
+
+### 访问
+
+- 模版页面
+http://localhost:8080/index
+
+- Restful API
+
+http://localhost:8080/types/list
+
+
+
