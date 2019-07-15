@@ -1,6 +1,6 @@
 package cn.chenzw.springboot.one.service;
 
-import cn.chenzw.springboot.infrastructure.domain.entity.TypesEntity;
+import cn.chenzw.springboot.one.domain.entity.TypesEntity;
 
 import java.util.List;
 

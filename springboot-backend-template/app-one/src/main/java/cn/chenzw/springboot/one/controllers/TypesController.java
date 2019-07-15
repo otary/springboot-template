@@ -1,6 +1,6 @@
 package cn.chenzw.springboot.one.controllers;
 
-import cn.chenzw.springboot.infrastructure.domain.entity.TypesEntity;
+import cn.chenzw.springboot.one.domain.entity.TypesEntity;
 import cn.chenzw.springboot.one.service.TypesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +19,13 @@ public class TypesController {
 
     @GetMapping("/list")
     public List<TypesEntity> listAll() {
+
+        try{
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         return typesService.listAll();
     }
 

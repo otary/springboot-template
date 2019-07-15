@@ -1,6 +1,4 @@
-package cn.chenzw.springboot.infrastructure.domain.entity;
-
-import cn.chenzw.springboot.infrastructure.domain.dto.SexEmnu;
+package cn.chenzw.springboot.one.domain.entity;
 
 /**
  * Java基本数据类型实体
@@ -16,7 +14,6 @@ public class TypesEntity {
     private Float floatType;
     private Long longType;
     private Double doubleType;
-    private SexEmnu sexEmnu;
 
     public Byte getByteType() {
         return byteType;
@@ -82,26 +79,11 @@ public class TypesEntity {
         this.doubleType = doubleType;
     }
 
-    public SexEmnu getSexEmnu() {
-        return sexEmnu;
-    }
-
-    public void setSexEmnu(SexEmnu sexEmnu) {
-        this.sexEmnu = sexEmnu;
-    }
 
     @Override
     public String toString() {
-        return "TypesEntity{" +
-                "byteType=" + byteType +
-                ", booleanType=" + booleanType +
-                ", shortType=" + shortType +
-                ", characterType=" + characterType +
-                ", integerType=" + integerType +
-                ", floatType=" + floatType +
-                ", longType=" + longType +
-                ", doubleType=" + doubleType +
-                ", sexEmnu=" + sexEmnu +
-                '}';
+        return "TypesEntity{" + "byteType=" + byteType + ", booleanType=" + booleanType + ", shortType=" + shortType
+                + ", characterType=" + characterType + ", integerType=" + integerType + ", floatType=" + floatType
+                + ", longType=" + longType + ", doubleType=" + doubleType + '}';
     }
 }
