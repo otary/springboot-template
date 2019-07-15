@@ -6,6 +6,7 @@
 
     <modules>
         <module>springboot-integration-template</module>
+        <module>springboot-detached-template</module>
     </modules>
 
     <parent>
