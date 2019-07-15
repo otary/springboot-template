@@ -5,7 +5,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>springboot-backend-template</module>
+        <module>springboot-integration-template</module>
     </modules>
 
     <parent>

@@ -6,13 +6,12 @@
 
     <parent>
         <groupId>cn.chenzw.springboot</groupId>
-        <artifactId>springboot-backend-template</artifactId>
+        <artifactId>springboot-integration-template</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>cn.chenzw.springboot</groupId>
     <artifactId>app-infrastructure</artifactId>
-
 
 </project>

@@ -1,2 +1,4 @@
 # springboot-template
-springboot项目模版
+springboot项目原型模版
+
+- [springboot-integration-template](./springboot-integration-template): 一体化项目
