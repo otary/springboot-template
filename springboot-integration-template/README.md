@@ -5,5 +5,5 @@
 - 集成dozer
 - 集成tkMybatis
 - 集成druid
-- 集成
+- 集成thymeleaf
 
