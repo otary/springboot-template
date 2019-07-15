@@ -41,7 +41,6 @@
 
     <dependencyManagement>
         <dependencies>
-
             <!-- dozer -->
             <dependency>
                 <groupId>net.sf.dozer</groupId>
@@ -105,7 +104,6 @@
                 <version>${pagehelper.version}</version>
             </dependency>
             <!-- /persistence -->
-
         </dependencies>
     </dependencyManagement>
 
