@@ -1,9 +1,12 @@
 package cn.chenzw.springboot.infrastructure.domain.dto;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * 分页响应值
  */
-public interface PageResult {
+public interface PageResult<T> extends Serializable {
 
     /**
      * 获取总记录数
@@ -33,5 +36,10 @@ public interface PageResult {
      */
     Integer getOffset();
 
-
+    /**
+     * 获取数据列表
+     *
+     * @return
+     */
+    List<T> getData();
 }
