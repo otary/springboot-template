@@ -141,5 +141,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>cn.chenzw.toolkit</groupId>
+            <artifactId>toolkit</artifactId>
+            <version>1.0.1</version>
+        </dependency>
     </dependencies>
 </project>
