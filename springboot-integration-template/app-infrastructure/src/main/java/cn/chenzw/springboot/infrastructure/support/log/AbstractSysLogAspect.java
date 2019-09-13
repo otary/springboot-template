@@ -1,7 +1,7 @@
 package cn.chenzw.springboot.infrastructure.support.log;
 
 
-import cn.chenzw.springboot.infrastructure.domain.entity.SysLog;
+import cn.chenzw.springboot.infrastructure.domain.entity.SysLogEntity;
 import cn.chenzw.springboot.infrastructure.repository.mybatis.SysLogMapper;
 import cn.chenzw.toolkit.spring.aop.JoinPointWrapper;
 import org.apache.commons.lang3.StringUtils;
@@ -20,83 +20,109 @@ import java.util.Calendar;
  *
  * @author chenzw
  */
-public class AbstractSysLogAspect {
+public abstract class AbstractSysLogAspect {
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractSysLogAspect.class);
     private static final String POINT_CUT = "sysLog()";
 
     private ThreadLocal<JoinPointWrapper> joinPointWrapperTL = new ThreadLocal<>();
-    private ThreadLocal<SysLog> sysLogTL = new ThreadLocal<>();
+    private ThreadLocal<SysLogEntity> sysLogTL = new ThreadLocal<>();
 
-    @Autowired
-    SysLogMapper sysLogMapper;
 
-    @Pointcut("@annotation(com.ffcs.itm.cloud.infrastructure.support.log.SysLog)")
+    @Pointcut("@annotation(SysLog)")
     public void sysLog() {
-
     }
+
+
+    /**
+     * @param joinPointWrapper
+     * @param sysLogEntity
+     */
+    protected abstract void before(JoinPointWrapper joinPointWrapper, SysLogEntity sysLogEntity);
+
+
+    /**
+     * @param joinPointWrapper
+     * @param sysLogEntity
+     */
+    protected abstract void after(JoinPointWrapper joinPointWrapper, SysLogEntity sysLogEntity);
+
+
+    /**
+     * return时的处理类
+     *
+     * @param joinPointWrapper
+     * @param ret              返回值
+     * @param sysLogEntity
+     */
+    protected abstract void afterReturning(JoinPointWrapper joinPointWrapper, Object ret, SysLogEntity sysLogEntity);
+
+
+    /**
+     * 抛出异常时的处理类
+     *
+     * @param joinPointWrapper
+     * @param ex               抛出的异常
+     * @param sysLogEntity
+     */
+    protected abstract void afterThrowing(JoinPointWrapper joinPointWrapper, Throwable ex, SysLogEntity sysLogEntity);
+
 
     @Before(POINT_CUT)
     public void before(JoinPoint joinPoint) {
+        System.out.println("----------------------");
+
         JoinPointWrapper joinPointWrapper = new JoinPointWrapper(joinPoint);
         joinPointWrapperTL.set(joinPointWrapper);
 
-        SysLog sysLogAnn = joinPointWrapper
-                .getAnnotation(SysLog.class);
+        SysLog sysLogAnn = joinPointWrapper.getAnnotation(SysLog.class);
 
-        SysLog sysLog = new SysLog();
-        sysLogTL.set(sysLog);
+        SysLogEntity sysLogEntity = new SysLogEntity();
+        sysLogTL.set(sysLogEntity);
 
-        sysLog.setModuleName(StringUtils.defaultIfBlank(sysLogAnn.moduleName(), joinPointWrapper.getArtifactId()));
-        sysLog.setAppName(StringUtils.defaultIfBlank(sysLogAnn.appName(), sysLog.getModuleName()));
-        sysLog.setHttpMethod(joinPointWrapper.getHttpMethod());
-        sysLog.setRequestURI(joinPointWrapper.getURI());
+        sysLogEntity.setModuleName(StringUtils.defaultIfBlank(sysLogAnn.moduleName(), joinPointWrapper.getArtifactId()));
+        sysLogEntity.setAppName(StringUtils.defaultIfBlank(sysLogAnn.appName(), sysLogEntity.getModuleName()));
+        sysLogEntity.setHttpMethod(joinPointWrapper.getHttpMethod());
+        sysLogEntity.setRequestURI(joinPointWrapper.getURI());
+        sysLogEntity.setRequestQueryString(joinPointWrapper.getQueryString());
+        sysLogEntity.setClientId(joinPointWrapper.getClientIp());
+        sysLogEntity.setStartTime(Calendar.getInstance().getTime());
+
         try {
-            sysLog.setRequestBody(joinPointWrapper.getBodyString());
+            sysLogEntity.setRequestBody(joinPointWrapper.getBodyString());
         } catch (IOException ex) {
-            sysLog.setExMsg(ex.getMessage());
+            sysLogEntity.setExMsg(ex.getMessage());
         }
-        sysLog.setRequestQueryString(joinPointWrapper.getQueryString());
-        sysLog.setClientId(joinPointWrapper.getClientIp());
-        sysLog.setStartTime(Calendar.getInstance().getTime());
-        for (JoinPointWrapper.ParamMeta paramMeta : joinPointWrapper.getMethodArgs()) {
-            if (BaseParam.class.isAssignableFrom(paramMeta.getType())) {
-                BaseParam baseParam = (BaseParam) paramMeta.getValue();
-                if (baseParam.getOperator() != null) {
-                    sysLog.setOperator(baseParam.getOperator().getOperatorId());
-                    sysLog.setOperatorName(baseParam.getOperator().getOperatorName());
-                }
-            }
-        }
-        sysLogMapper.insertSelective(sysLog);
+
+        before(joinPointWrapper, sysLogEntity);
     }
+
 
     @After(POINT_CUT)
     public void after(JoinPoint joinPoint) {
-
+        after(joinPointWrapperTL.get(), sysLogTL.get());
     }
 
     @AfterReturning(pointcut = POINT_CUT, returning = "ret")
     public void afterReturning(JoinPoint joinPoint, Object ret) {
-        SysLog sysLog = sysLogTL.get();
-        sysLog.setSuccess(true);
-        sysLog.setFinishTime(Calendar.getInstance().getTime());
-        sysLog.setCost(sysLog.getFinishTime().getTime() - sysLog.getStartTime().getTime());
-        sysLog.setReturning(String.valueOf(ret));
+        SysLogEntity sysLogEntity = sysLogTL.get();
+        sysLogEntity.setSuccess(true);
+        sysLogEntity.setFinishTime(Calendar.getInstance().getTime());
+        sysLogEntity.setCost(sysLogEntity.getFinishTime().getTime() - sysLogEntity.getStartTime().getTime());
+        sysLogEntity.setReturning(String.valueOf(ret));
 
-        sysLogMapper.updateByPrimaryKeySelective(sysLog);
+        afterReturning(joinPointWrapperTL.get(), ret, sysLogEntity);
     }
 
     @AfterThrowing(pointcut = POINT_CUT, throwing = "ex")
     public void afterThrowing(JoinPoint joinPoint, Throwable ex) {
-        SysLog sysLog = sysLogTL.get();
-        sysLog.setSuccess(false);
-        sysLog.setFinishTime(Calendar.getInstance().getTime());
-        sysLog.setCost(sysLog.getFinishTime().getTime() - sysLog.getStartTime().getTime());
-        sysLog.setExMsg(ExceptionUtils.getStackTrace(ex));
+        SysLogEntity sysLogEntity = sysLogTL.get();
+        sysLogEntity.setSuccess(false);
+        sysLogEntity.setFinishTime(Calendar.getInstance().getTime());
+        sysLogEntity.setCost(sysLogEntity.getFinishTime().getTime() - sysLogEntity.getStartTime().getTime());
+        sysLogEntity.setExMsg(ExceptionUtils.getStackTrace(ex));
 
-        sysLogMapper.updateByPrimaryKeySelective(sysLog);
-
+        afterThrowing(joinPointWrapperTL.get(), ex, sysLogEntity);
     }
 
 }

@@ -1,3 +1,5 @@
+
+--
 DROP TABLE IF EXISTS `types_entity`;
 CREATE TABLE `types_entity`  (
   `byte_type` CHAR(1) NULL DEFAULT NULL,
@@ -11,5 +13,7 @@ CREATE TABLE `types_entity`  (
   `bigdecimal_type` bigint(20) NULL DEFAULT NULL,
   `boolean_type` boolean NULL DEFAULT NULL,
   `date_type` date NULL DEFAULT NULL
-
   )
+
+
+

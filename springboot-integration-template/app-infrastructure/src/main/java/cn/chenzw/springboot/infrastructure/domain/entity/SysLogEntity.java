@@ -9,7 +9,7 @@ import java.util.Date;
  * @author chenzw
  */
 @Table(name = "sys_log")
-public class SysLog {
+public class SysLogEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -221,7 +221,7 @@ public class SysLog {
 
     @Override
     public String toString() {
-        return "SysLog{" + "id=" + id + ", appName='" + appName + '\'' + ", moduleName='" + moduleName + '\''
+        return "SysLogEntity{" + "id=" + id + ", appName='" + appName + '\'' + ", moduleName='" + moduleName + '\''
                 + ", httpMethod='" + httpMethod + '\'' + ", requestURI='" + requestURI + '\'' + ", requestQueryString='"
                 + requestQueryString + '\'' + ", requestBody='" + requestBody + '\'' + ", operator=" + operator
                 + ", operatorName='" + operatorName + '\'' + ", clientId='" + clientId + '\'' + ", startTime="

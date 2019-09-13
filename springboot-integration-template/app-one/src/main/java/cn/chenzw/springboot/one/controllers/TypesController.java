@@ -19,13 +19,6 @@ public class TypesController {
 
     @GetMapping("/list")
     public List<TypesEntity> listAll() {
-
-        try{
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
         return typesService.listAll();
     }
 
