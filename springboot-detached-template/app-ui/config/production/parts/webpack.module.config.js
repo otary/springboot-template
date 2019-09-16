@@ -16,7 +16,7 @@ module.exports = [
         use: [{
             loader: MiniCssExtractPlugin.loader,
             options: {
-                hmr: true,
+                hmr: false,
             },
         }, 'css-loader', 'postcss-loader', 'sass-loader']
     }, {
