@@ -8,6 +8,12 @@
 - 集成thymeleaf
 
 
+## 模块
+
+- app-infrastructure: 基础模块
+- app-one: springboot + vue
+- app-two: springboot + thymeleaf
+
 ### 访问
 
 - 模版页面
