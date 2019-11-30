@@ -70,7 +70,6 @@ public abstract class AbstractSysLogAspect {
 
     @Before(POINT_CUT)
     public void before(JoinPoint joinPoint) {
-        System.out.println("----------------------");
 
         JoinPointWrapper joinPointWrapper = new JoinPointWrapper(joinPoint);
         joinPointWrapperTL.set(joinPointWrapper);
