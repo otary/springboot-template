@@ -18,7 +18,16 @@ module.exports = [
             options: {
                 hmr: true,
             },
-        }, 'css-loader', 'postcss-loader', 'sass-loader']
+        }, 'css-loader', {
+            loader: 'postcss-loader',
+            options: {
+                ident: 'postcss',
+                plugins: [
+                    // require('autoprefixer')(),
+                    require('postcss-next')()
+                ]
+            }
+        }, 'sass-loader']
     }, {
         test: /\.(js|jsx)$/,
         use: [{
