@@ -1,44 +1,9 @@
 #!/bin/bash
 
-cd `dirname $0`
-BIN_DIR=`pwd`
+## 应用名称需要修改
+APP_NAME=app-one
 
-cd ..
-DEPLOY_DIR=`pwd`
-CONF_DIR=$DEPLOY_DIR/config
-
-SERVER_NAME=$DEPLOY_DIR
-
-PIDS=`ps -ef | grep java | grep "$CONF_DIR" |awk '{print $2}'`
-if [ -z "$PIDS" ]; then
-    echo "ERROR: The $SERVER_NAME does not started!"
-    exit 1
-
-
-
-
-if [ "$1" != "skip" ]; then
-    $BIN_DIR/dump.sh
-fi
-
-echo -e "Stopping the $SERVER_NAME ...\c"
-for PID in $PIDS ; do
-    kill $PID > /dev/null 2>&1
-done
-
-COUNT=0
-while [ $COUNT -lt 1 ]; do
-    echo -e ".\c"
-    sleep 1
-    COUNT=1
-    for PID in $PIDS ; do
-        PID_EXIST=`ps -f -p $PID | grep java`
-        if [ -n "$PID_EXIST" ]; then
-            COUNT=0
-            break
-        fi
-    done
-done
-
-echo "OK!"
-echo "PID: $PIDS"
+## 先尝试kill,再尝试kill -9
+ps -ef|grep $APP_NAME |grep -v grep|awk '{print $2}'|xargs kill
+sleep 3
+ps -ef|grep $APP_NAME |grep -v grep|awk '{print $2}'|xargs kill -9
