@@ -1,0 +1,11 @@
+logging:
+  level: debug
+    #显示 controller url 映射信息
+    org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: trace
+
+spring:
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+      exclude: test/**
