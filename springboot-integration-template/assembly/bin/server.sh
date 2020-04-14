@@ -12,7 +12,7 @@ start(){
 }
 
 stop(){
-    ./stop.sh
+    stop_2.sh
 }
 
 status(){
@@ -24,7 +24,7 @@ debug(){
 }
 
 restart(){
-    ./stop.sh
+    stop_2.sh
     ./start.sh
 }
 
