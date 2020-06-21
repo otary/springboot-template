@@ -59,7 +59,7 @@ public class SysLogEntity {
     /**
      * 客户端IP
      */
-    private String clientId;
+    private String clientIp;
 
     /**
      * 操作起始时间
@@ -147,12 +147,13 @@ public class SysLogEntity {
         this.operator = operator;
     }
 
-    public String getClientId() {
-        return clientId;
+
+    public String getClientIp() {
+        return clientIp;
     }
 
-    public void setClientId(String clientId) {
-        this.clientId = clientId;
+    public void setClientIp(String clientIp) {
+        this.clientIp = clientIp;
     }
 
     public Date getStartTime() {
@@ -221,12 +222,24 @@ public class SysLogEntity {
 
     @Override
     public String toString() {
-        return "SysLogEntity{" + "id=" + id + ", appName='" + appName + '\'' + ", moduleName='" + moduleName + '\''
-                + ", httpMethod='" + httpMethod + '\'' + ", requestURI='" + requestURI + '\'' + ", requestQueryString='"
-                + requestQueryString + '\'' + ", requestBody='" + requestBody + '\'' + ", operator=" + operator
-                + ", operatorName='" + operatorName + '\'' + ", clientId='" + clientId + '\'' + ", startTime="
-                + startTime + ", finishTime=" + finishTime + ", cost=" + cost + ", isSuccess=" + isSuccess + ", exMsg='"
-                + exMsg + '\'' + ", returning='" + returning + '\'' + '}';
+        return "SysLogEntity{" +
+                "id=" + id +
+                ", appName='" + appName + '\'' +
+                ", moduleName='" + moduleName + '\'' +
+                ", httpMethod='" + httpMethod + '\'' +
+                ", requestURI='" + requestURI + '\'' +
+                ", requestQueryString='" + requestQueryString + '\'' +
+                ", requestBody='" + requestBody + '\'' +
+                ", operator=" + operator +
+                ", operatorName='" + operatorName + '\'' +
+                ", clientIp='" + clientIp + '\'' +
+                ", startTime=" + startTime +
+                ", finishTime=" + finishTime +
+                ", cost=" + cost +
+                ", isSuccess=" + isSuccess +
+                ", exMsg='" + exMsg + '\'' +
+                ", returning='" + returning + '\'' +
+                '}';
     }
 
 }

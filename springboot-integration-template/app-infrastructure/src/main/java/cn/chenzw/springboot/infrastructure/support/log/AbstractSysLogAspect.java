@@ -84,7 +84,7 @@ public abstract class AbstractSysLogAspect {
         sysLogEntity.setHttpMethod(joinPointWrapper.getHttpMethod());
         sysLogEntity.setRequestURI(joinPointWrapper.getURI());
         sysLogEntity.setRequestQueryString(joinPointWrapper.getQueryString());
-        sysLogEntity.setClientId(joinPointWrapper.getClientIp());
+        sysLogEntity.setClientIp(joinPointWrapper.getClientIp());
         sysLogEntity.setStartTime(Calendar.getInstance().getTime());
 
         try {
