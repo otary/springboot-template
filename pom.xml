@@ -35,7 +35,7 @@
         <dozer.version>5.5.1</dozer.version>
         <swagger.version>2.9.2</swagger.version>
         <tkmybatis.version>2.1.5</tkmybatis.version>
-        <h2.version>1.4.199</h2.version>
+        <h2.version>2.1.210</h2.version>
         <pagehelper.version>1.2.11</pagehelper.version>
     </properties>
 
